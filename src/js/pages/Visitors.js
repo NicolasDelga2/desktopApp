@@ -1,41 +1,65 @@
-import React, {useState, useEffect} from 'react'
-import Datatable from '../components/Datatable/Datatable';
+import React, { useState, useEffect } from "react";
+import Datatable from "../components/Datatable/Datatable";
+import "./pagesStyle/style.css";
 
 const Visitors = () => {
   const [data, setData] = useState([]);
   const [q, setQ] = useState("");
   const [loading, setLoading] = useState(false);
+  const [searchColumns, setSearchColumns] = useState(["lastname", "name"]);
 
   useEffect(() => {
-    setLoading(true)
-    fetch("http://jsonplaceholder.typicode.com/todos")
+    setLoading(true);
+    fetch("http://localhost:8080/api/v1/visitor/visitors")
       .then((response) => response.json())
       .then((json) => setData(json));
-      setLoading(false)
+    setLoading(false);
   }, []);
 
-   function search(rows) {
-     const columns = rows[0] && Object.keys(rows[0]);
-     return rows.filter((row) => 
-       columns.some(
-         (column) => row[column].toString().toLowerCase().indexOf(q.toLowerCase()) > -1
-       )
-     );
-   }
+  const columns = data[0] && Object.keys(data[0]);
+
+  function search(rows) {
+    return rows.filter((row) =>
+      columns.some(
+        (column) =>
+          row.name.toString().toLowerCase().indexOf(q.toLowerCase()) > -1
+      )
+    );
+  }
+ 
   return (
     <div>
-      <h2>Registro de visitantes</h2>
-      <button className="btn btn-btn-danger">New visitor</button>
-      <p>
-        Registro de Nuevo Visitante Tabla de Visitante Editar visitante y borrar
-        visitante
-      </p>
-      <p>Usar Modal</p>
+     
       <div>
-        <input type="text" onChange={(e) => setQ(e.target.value)} value={q} placeholder='Buscar'/>
+        <input
+          type="text"
+          className="browser-input"
+          onChange={(e) => setQ(e.target.value)}
+          value={q}
+          placeholder="Buscar"
+        />
+        {
+          columns && columns.map((column,index) => <label key={index}>
+            <input type="checkbox" 
+            checked={searchColumns.includes(column)} 
+
+            onChange={ (e) => {
+              const checked = searchColumns.includes(column)
+              setSearchColumns((prev) => 
+              checked 
+              ? prev.filter((sc) => sc !== column)// Quitar columna
+              : [...prev, column]) // Agregar columna 
+
+            }} />
+            {column}</label>)
+        }
       </div>
       <div>
-        {loading ? <h1 style={{fontSize:30}}>Loading ....</h1> :  <Datatable data={search(data)} />}
+        {loading ? (
+          <h1 className="Loader">Loading ....</h1>
+        ) : (
+          <Datatable data={search(data)} />
+        )}
       </div>
     </div>
   );

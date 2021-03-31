@@ -12,7 +12,7 @@ function Login({LoginFunction, error}) {
 
   return (
     <div className="container">
-      <h2>Parque Nacional Rio Pilcomayo</h2>
+      <h2>Nombre del Area Natural</h2>
       <div className="user-picture"></div>
       <form  onSubmit={submitHandler}>
         <div className="form-group">

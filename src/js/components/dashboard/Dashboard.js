@@ -8,11 +8,11 @@ import Documentation from "../../pages/Documentation";
 import Configuration from "../../pages/Configuration";
 import Maps from "../../pages/Maps";
 
-const Dashboard = ({logout}) => {
+const Dashboard = ({logout, name}) => {
   return (
     <>
       <Router>
-        <Navbar logout={logout} />
+        <Navbar logout={logout} name={name} />
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/visitor" component={Visitors} />

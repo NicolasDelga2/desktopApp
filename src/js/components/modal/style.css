@@ -1,0 +1,25 @@
+/* Modal */
+.is-active{
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-container{
+    z-index: 100;
+    background-color: rgb(57, 71, 197);
+    color: #000;
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    margin: auto;
+    transition: all 0.5s ease-in;
+}
+.none{
+    visibility: hidden;
+    opacity: 0;
+}

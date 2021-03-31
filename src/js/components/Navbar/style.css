@@ -1,5 +1,5 @@
 .navbar{
-    background-color: #060b26;
+    background-color: #111631;
     height: 88px;
     display: flex;
     justify-content: start;
@@ -66,4 +66,23 @@
 }
 span{
     margin-left: 16px;
+}
+
+/* User Wrapper */
+.user-wrapper{
+    display: flex;
+    flex-direction: row;
+    width: 100px;
+    position: absolute;
+    right: 60px;
+    top: 30px;
+    color: #f2f2f2;
+}
+.navbar-user-picture{
+    background-color: #fff;
+    border-radius: 20px;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: 0px;
 }

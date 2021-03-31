@@ -7,9 +7,9 @@ import './style.css'
 import { IconContext } from "react-icons";
 
 
-function Navbar({logout}) {
-    const [sidebar, setSidebar] = useState(false);
+function Navbar({logout, name}) {
 
+  const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => {
         setSidebar(!sidebar);
     }
@@ -21,6 +21,10 @@ function Navbar({logout}) {
             <Link to="#" className="menu-bars">
               <FaBars onClick={showSidebar} />
             </Link>
+            <div className='user-wrapper'>
+              <h4>{name}</h4>
+              <div className='navbar-user-picture'></div>
+            </div>
           </div>
           <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
             <ul className="nav-menu-items" onClick={showSidebar}>

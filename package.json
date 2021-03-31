@@ -6,13 +6,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --config webpack.common.js --watch",
-    "start": "electron ."
+    "start": "electron .",
+    "started": "node dist/"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bootstrap": "^4.6.0",
+    "@babel/cli": "^7.13.14",
+    "@babel/node": "^7.13.13",
+    "bootswatch": "^4.6.0",
+    "ejs": "^3.1.6",
     "electron": "^12.0.2",
     "node-sass": "^5.0.0",
     "react": "^17.0.2",
