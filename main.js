@@ -1,7 +1,9 @@
 const {app, BrowserWindow} = require('electron');
 const path = require('path');
+const process = require('process');
 
 const isDev = !process.defaultApp;
+
 
 function createWindow() {
     const win = new BrowserWindow({
@@ -23,3 +25,4 @@ if(isDev){
 }
 
 app.whenReady().then(createWindow)
+process.env.GOOGLE_API_KEY = 'AIzaSyAkdRSmW-6OX4itnpaORHde0GcYlKNL6VA'

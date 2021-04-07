@@ -1,12 +1,68 @@
 import React, { useState } from 'react';
 import './style.css'
 import * as FaIcons  from "react-icons/fa";
-import Modal from '../modal/Modal'
+import Modal from '../modal/modal';
 
-const Datatable = ({data}) => {
+const Datatable = ({data, setData}) => {
     const [modalIsActive, setModalIsActive] = useState(false);
-
+    const [editValues, setEditValues] = useState({});
+    const setModal = () => {
+      setModalIsActive(!modalIsActive);
+    }
+    
     const columns = data[0] && Object.keys(data[0]);
+
+    const addOrEdit = async (linkObject) => {
+      if (linkObject.id > 0) {
+        const requestOptions = {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(linkObject),
+        };
+        fetch("http://localhost:8080/api/v1/visitor/update", requestOptions)
+          .then((res) => res.json())
+          .catch((err) => console.log("error", err))
+          .then((response) => console.log("success", response));
+
+      } else {
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(linkObject),
+        };
+        fetch("http://localhost:8080/api/v1/visitor/save", requestOptions)
+          .then((res) => res.json())
+          .catch((err) => console.log("error", err))
+          .then((response) => console.log("success", response));
+      }
+      setModalIsActive(!modalIsActive);
+      setData(data);
+    };
+
+    const setValuesEditModal = async (id) => {
+      const visitorValues = {};
+      fetch(`http://localhost:8080/api/v1/visitor/getVisitor/${id}`)
+      .then((response) => response.json())
+      .then((json) =>console.log(json));
+      setModalIsActive(true);
+    }
+
+
+    const deleteVisitor = async (id) => {
+      if (window.confirm("Seguro que quiere eliminar este registro?")) {
+        const requestOptions = {
+          method: "DELETE",
+        };
+        fetch(
+          `http://localhost:8080/api/v1/visitor/delete/${id}`,
+          requestOptions
+        )
+          .then((res) => res.json())
+          .catch((err) => console.log("error", err))
+          .then((response) => console.log("success", response));
+          setData(data)
+      }
+    };
 
     return (
       <>
@@ -27,6 +83,7 @@ const Datatable = ({data}) => {
                 ))}
               <th>Editar</th>
               <th>Detalles</th>
+              <th>Eliminar</th>
             </tr>
           </thead>
           <tbody>
@@ -40,7 +97,7 @@ const Datatable = ({data}) => {
                   <td className="td">{row.description}</td>
                   <td className="td">{row.field}</td>
                   <td className="td">
-                    <button className="btn-edit">
+                    <button className="btn-edit" onClick={() => setValuesEditModal(row.id)}>
                       <FaIcons.FaEdit />
                     </button>
                   </td>
@@ -49,12 +106,21 @@ const Datatable = ({data}) => {
                       <FaIcons.FaInfoCircle />
                     </button>
                   </td>
+                  <td className="td">
+                    <button className="btn-delete" onClick={() => deleteVisitor(row.id)}>
+                      <FaIcons.FaDAndD />
+                    </button>
+                  </td>
                 </tr>
               );
             })}
           </tbody>
         </table>
-            <Modal modalIsActive={modalIsActive}/>
+            <Modal  
+            modalIsActive={modalIsActive} 
+            setModal={setModal} 
+            addOrEdit={addOrEdit}
+            />
       </>
     );
 }

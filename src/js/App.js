@@ -37,7 +37,7 @@ export default function App(){
   return (
     <div className="App">
       {user.username !== "" ? (
-        <Dashboard name={user.username} logout={logout} />
+        <Dashboard name={user.username} logout={logout}/>
       ) : (
         <Login LoginFunction={LoginFunction} error={error} />
       )}
@@ -45,20 +45,3 @@ export default function App(){
   );
 }
 
-
-
-
-  /*
-  const LoginFunction = (details) => {
-    adminUser.forEach((admin) => {
-      if (
-        details.username === admin.username &&
-        details.password === admin.password
-      ) {
-        setUser({ username: details.username, password: details.password });
-      } else {
-        setError("# El usuario o contraseña es incorrecto");
-      }
-    });
-  };
-*/

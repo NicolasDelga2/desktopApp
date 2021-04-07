@@ -9,11 +9,10 @@ const Visitors = () => {
   const [searchColumns, setSearchColumns] = useState(["lastname", "name"]);
 
   useEffect(() => {
-    setLoading(true);
     fetch("http://localhost:8080/api/v1/visitor/visitors")
-      .then((response) => response.json())
-      .then((json) => setData(json));
-    setLoading(false);
+    .then((response) => response.json())
+    .then((json) => setData(json));
+    console.log('re render');
   }, []);
 
   const columns = data[0] && Object.keys(data[0]);
@@ -22,14 +21,13 @@ const Visitors = () => {
     return rows.filter((row) =>
       columns.some(
         (column) =>
-          row.name.toString().toLowerCase().indexOf(q.toLowerCase()) > -1
+          row[column].toString().toLowerCase().indexOf(q.toLowerCase()) > -1
       )
     );
   }
  
   return (
     <div>
-     
       <div>
         <input
           type="text"
@@ -58,7 +56,7 @@ const Visitors = () => {
         {loading ? (
           <h1 className="Loader">Loading ....</h1>
         ) : (
-          <Datatable data={search(data)} />
+          <Datatable data={search(data)} setData={setData} />
         )}
       </div>
     </div>

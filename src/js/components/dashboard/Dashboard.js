@@ -7,6 +7,7 @@ import Documents from "../../pages/Documents";
 import Documentation from "../../pages/Documentation";
 import Configuration from "../../pages/Configuration";
 import Maps from "../../pages/Maps";
+import Analitycs from "../../pages/Analitycs";
 
 const Dashboard = ({logout, name}) => {
   return (
@@ -16,6 +17,7 @@ const Dashboard = ({logout, name}) => {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/visitor" component={Visitors} />
+          <Route path="/analitics" component={Analitycs}/>
           <Route path="/documents" component={Documents} />
           <Route path="/documentation" component={Documentation} />
           <Route path="/maps" component={Maps}/>
